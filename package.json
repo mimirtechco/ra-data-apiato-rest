@@ -15,9 +15,9 @@
         "François Zaninotto",
         "M. Mert Yildiran"
     ],
-    "repository": "mertyildiran/ra-data-apiato-rest",
-    "homepage": "https://github.com/mertyildiran/ra-data-apiato-rest#readme",
-    "bugs": "https://github.com/mertyildiran/ra-data-apiato-rest/issues",
+    "repository": "mimirtechco/ra-data-apiato-rest",
+    "homepage": "https://github.com/mimirtechco/ra-data-apiato-rest#readme",
+    "bugs": "https://github.com/mimirtechco/ra-data-apiato-rest/issues",
     "license": "MIT",
     "scripts": {
         "build": "yarn run build-cjs && yarn run build-esm",
