@@ -1,6 +1,6 @@
 {
     "name": "@mimirtech/ra-data-apiato-rest",
-    "version": "3.2.9-dev",
+    "version": "3.2.8",
     "description": "Apiato REST data provider for react-admin",
     "main": "lib/index.js",
     "module": "esm/index.js",
