@@ -1,13 +1,9 @@
 import jwtDecode, { JwtPayload } from "jwt-decode";
-const API_ENTRYPOINT: string = process.env.NEXT_PUBLIC_API_ENTRYPOINT || "http://localhost";
-const API_LOGIN_URI: string = process.env.NEXT_PUBLIC_API_LOGIN_URI || "/clients/web/login";
-const API_LOGOUT_URI: string = process.env.NEXT_PUBLIC_API_LOGIN_URI || "/logout";
-const loginUrl: string = `${API_ENTRYPOINT}${API_LOGIN_URI}`;
-const logoutUrl: string = `${API_ENTRYPOINT}${API_LOGOUT_URI}`;
+
 export default {
   login: ({ username, password }) => {
     // build the request
-    const request = new Request(loginUrl, {
+    const request = new Request('/clients/web/login', {
       method: "POST",
       body: JSON.stringify({ username, password }),
       headers: new Headers({
@@ -31,7 +27,7 @@ export default {
   },
   logout: (params) => {
     // build request
-    const request = new Request(logoutUrl, {
+    const request = new Request('/logout', {
       method: "POST",
       headers: new Headers({
         "Content-Type": "application/json",
