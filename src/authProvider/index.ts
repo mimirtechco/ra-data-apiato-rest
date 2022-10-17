@@ -1,3 +1,4 @@
+import jwtDecode, { JwtPayload } from "jwt-decode";
 const API_ENTRYPOINT: string = process.env.API_ENTRYPOINT || "http://localhost";
 const API_LOGIN_URI: string = process.env.API_LOGIN_URI || "/clients/web/login";
 const API_LOGOUT_URI: string = process.env.API_LOGIN_URI || "/logout";
@@ -48,8 +49,16 @@ export default {
         localStorage.removeItem("token");
       });
   },
-  checkAuth: (params) =>
-    localStorage.getItem("token") ? Promise.resolve() : Promise.reject(),
+  checkAuth: (params) => {
+    try {
+      if (!localStorage.getItem('token') || new Date().getTime() / 1000 > jwtDecode<JwtPayload>(localStorage.getItem('token'))?.exp) {
+        return Promise.reject();
+      }
+      return Promise.resolve();
+    } catch (e) {
+      return Promise.reject();
+    }
+  },
   checkError: (error) => {
     const status = error.status;
     if (status === 401 || status === 403) {
