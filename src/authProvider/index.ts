@@ -51,7 +51,11 @@ export default {
   },
   checkAuth: (params) => {
     try {
-      if (!localStorage.getItem('token') || new Date().getTime() / 1000 > jwtDecode<JwtPayload>(localStorage.getItem('token'))?.exp) {
+      if (
+        !localStorage.getItem("token") ||
+        new Date().getTime() / 1000 >
+          jwtDecode<JwtPayload>(localStorage.getItem("token"))?.exp
+      ) {
         return Promise.reject();
       }
       return Promise.resolve();
