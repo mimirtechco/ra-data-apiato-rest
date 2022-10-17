@@ -1,7 +1,7 @@
 import jwtDecode, { JwtPayload } from "jwt-decode";
-const API_ENTRYPOINT: string = process.env.API_ENTRYPOINT || "http://localhost";
-const API_LOGIN_URI: string = process.env.API_LOGIN_URI || "/clients/web/login";
-const API_LOGOUT_URI: string = process.env.API_LOGIN_URI || "/logout";
+const API_ENTRYPOINT: string = process.env.NEXT_PUBLIC_API_ENTRYPOINT || "http://localhost";
+const API_LOGIN_URI: string = process.env.NEXT_PUBLIC_API_LOGIN_URI || "/clients/web/login";
+const API_LOGOUT_URI: string = process.env.NEXT_PUBLIC_API_LOGIN_URI || "/logout";
 const loginUrl: string = `${API_ENTRYPOINT}${API_LOGIN_URI}`;
 const logoutUrl: string = `${API_ENTRYPOINT}${API_LOGOUT_URI}`;
 export default {
