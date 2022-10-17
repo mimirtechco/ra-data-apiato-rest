@@ -1,9 +1,10 @@
 import jwtDecode, { JwtPayload } from "jwt-decode";
+import {AuthProvider} from "ra-core";
 
-export default {
+export default (apiUrl, loginUri = '/clients/web/login', logoutUri = '/logout'): AuthProvider => ({
   login: ({ username, password }) => {
     // build the request
-    const request = new Request('/clients/web/login', {
+    const request = new Request(`${apiUrl}${loginUri}`, {
       method: "POST",
       body: JSON.stringify({ username, password }),
       headers: new Headers({
@@ -27,7 +28,7 @@ export default {
   },
   logout: (params) => {
     // build request
-    const request = new Request('/logout', {
+    const request = new Request(`${apiUrl}${loginUri}`, {
       method: "POST",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -71,4 +72,4 @@ export default {
     const role = JSON.parse(localStorage.getItem("token"))?.role;
     return role ? Promise.resolve(role) : Promise.reject();
   },
-};
+});
