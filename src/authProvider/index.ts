@@ -2,6 +2,25 @@ import jwtDecode, { JwtPayload } from "jwt-decode";
 import {AuthProvider} from "ra-core";
 
 export default (apiUrl, loginUri = '/clients/web/login', logoutUri = '/logout'): AuthProvider => ({
+  logout: (params) => {
+    // build request
+    const request = new Request(`${apiUrl}${logoutUri}`, {
+      method: "DELETE",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      }),
+    });
+    return fetch(request)
+        .then((response) => {
+          // if (response.status < 200 || response.status >= 300) {
+          //   throw new Error(response.statusText);
+          // }
+          localStorage.removeItem("token");
+          return Promise.resolve();
+          // return response.json();
+        });
+  },
   login: ({ username, password }) => {
     // build the request
     const request = new Request(`${apiUrl}${loginUri}`, {
@@ -25,30 +44,6 @@ export default (apiUrl, loginUri = '/clients/web/login', logoutUri = '/logout'):
       .catch(() => {
         throw new Error("Network Error");
       });
-  },
-  logout: (params) => {
-    // build request
-    const request = new Request(`${apiUrl}${logoutUri}`, {
-      method: "DELETE",
-      headers: new Headers({
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-      }),
-    });
-    return fetch(request)
-      .then((response) => {
-        if (response.status < 200 || response.status >= 300) {
-          throw new Error(response.statusText);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        localStorage.removeItem("token");
-      })
-        .then((data) => {
-          return Promise.resolve();
-
-        });
   },
   checkAuth: (params) => {
     try {
