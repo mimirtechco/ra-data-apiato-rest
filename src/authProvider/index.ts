@@ -9,7 +9,7 @@ export default (apiUrl, loginUri = '/clients/web/login', logoutUri = '/logout'):
       body: JSON.stringify({ username, password }),
       headers: new Headers({
         "Content-Type": "application/json",
-        Accept: "application/json",
+        "Accept": "application/json",
       }),
     });
     return fetch(request)
@@ -32,7 +32,7 @@ export default (apiUrl, loginUri = '/clients/web/login', logoutUri = '/logout'):
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
-        Accept: "application/json",
+        "Accept": "application/json",
       }),
     });
     return fetch(request)
@@ -44,7 +44,11 @@ export default (apiUrl, loginUri = '/clients/web/login', logoutUri = '/logout'):
       })
       .then((data) => {
         localStorage.removeItem("token");
-      });
+      })
+        .then((data) => {
+          return Promise.resolve();
+
+        });
   },
   checkAuth: (params) => {
     try {
