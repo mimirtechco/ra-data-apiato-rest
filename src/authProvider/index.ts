@@ -29,7 +29,7 @@ export default (apiUrl, loginUri = '/clients/web/login', logoutUri = '/logout'):
   logout: (params) => {
     // build request
     const request = new Request(`${apiUrl}${logoutUri}`, {
-      method: "POST",
+      method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
         Accept: "application/json",
