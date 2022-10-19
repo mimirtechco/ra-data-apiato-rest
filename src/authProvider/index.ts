@@ -1,10 +1,11 @@
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import {AuthProvider} from "ra-core";
+import authConfig from "./authConfig";
 
-export default (apiUrl, loginUri = '/clients/web/login', logoutUri = '/logout'): AuthProvider => ({
+export default (): AuthProvider => ({
   logout: (params) => {
     // build request
-    const request = new Request(`${apiUrl}${logoutUri}`, {
+    const request = new Request(`${authConfig.apiUrl}${authConfig.logoutUri}`, {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -23,7 +24,7 @@ export default (apiUrl, loginUri = '/clients/web/login', logoutUri = '/logout'):
   },
   login: ({ username, password }) => {
     // build the request
-    const request = new Request(`${apiUrl}${loginUri}`, {
+    const request = new Request(`${authConfig.apiUrl}${authConfig.loginUri}`, {
       method: "POST",
       body: JSON.stringify({ username, password }),
       headers: new Headers({
@@ -39,7 +40,7 @@ export default (apiUrl, loginUri = '/clients/web/login', logoutUri = '/logout'):
         return response.json();
       })
       .then((data) => {
-        localStorage.setItem("token", data);
+        localStorage.setItem("token", data.access_token);
       })
       .catch(() => {
         throw new Error("Network Error");
